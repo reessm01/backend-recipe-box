@@ -1,0 +1,9 @@
+<h1>Hello</h1>
+
+<div>
+{% for data in datas %}
+    <h3><a href="google.com">{{data.title}}</a></h3>
+    <p>{{data.description}} (time required: {{data.time_rq}} min.)</p>
+    <a href="www.google.com">Author: {{data.author}}</a>
+{% endfor %}
+</div>
