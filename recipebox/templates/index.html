@@ -1,9 +1,9 @@
-<h1>Hello</h1>
+<h1>Home</h1>
 
 <div>
-{% for data in datas %}
-    <h3><a href="google.com">{{data.title}}</a></h3>
-    <p>{{data.description}} (time required: {{data.time_rq}} min.)</p>
-    <a href="www.google.com">Author: {{data.author}}</a>
+{% for recipe in recipes %}
+    <h3><a href="/recipe/?id={{ recipe.id }}">{{recipe.title}}</a></h3>
+    <p>{{recipe.description}} (time required: {{recipe.time_rq}} min.)</p>
+    <a href="/author/?id={{ recipe.author.id }}">Author: {{recipe.author}}</a>
 {% endfor %}
 </div>
