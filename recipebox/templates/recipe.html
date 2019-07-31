@@ -1,0 +1,11 @@
+<div>
+  {% for recipe in recipes %}
+  <h1>{{ recipe.title }}</h1>
+  <p>
+    <em>{{ recipe.description }} (time required: {{ recipe.time_rq }} min.)</em>
+  </p>
+  <h3>Instructions:</h3>
+  <p>{{ recipe.instructions }}</p>
+  <a href="/author/?id={{ recipe.author.id }}">Author: {{ recipe.author }}</a>
+  {% endfor %}
+</div>
