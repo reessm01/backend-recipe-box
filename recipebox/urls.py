@@ -24,7 +24,9 @@ admin.site.register(Recipe)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index),
+    path('', index, name='homepage'),
     path('author/', author, name='id'),
     path('recipe/', recipe, name='id'),
+    path('addrecipe', addrecipe),
+    path('addauthor', addauthor)
 ]
