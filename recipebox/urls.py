@@ -28,5 +28,7 @@ urlpatterns = [
     path('author/', author, name='id'),
     path('recipe/', recipe, name='id'),
     path('addrecipe', addrecipe),
-    path('addauthor', addauthor)
+    path('addauthor', addauthor),
+    path('register', register, name='register'),
+    path('login', login_view, name='login_view')
 ]

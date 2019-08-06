@@ -1,8 +1,9 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
+from django.contrib.auth import authenticate, login
 
-from recipebox.models import Recipe, Author
+from recipebox.models import *
 
-from recipebox.forms import RecipeForm, AuthorForm
+from recipebox.forms import *
 
 def index(request, *args, **kwargs):
     page = 'index.html'
@@ -10,6 +11,46 @@ def index(request, *args, **kwargs):
     recipes = Recipe.objects.all()
 
     return render(request, page, {'recipes': recipes})
+
+def register(request, *args, **kwargs):
+    if request.method == 'GET':
+        page = 'general_form.html'
+        title = 'We are excited you are interested in joining:'
+        form = RegisterForm()
+        return render(request, page, {'form': form, 'title': title})
+    else:
+        form = RegisterForm(request.POST)
+        if User.objects.filter(username=request.POST['username']).count() == 0 and form.is_valid():
+            data = form.cleaned_data
+            u = User.objects.create_user(
+                username=data['username'],
+                password=data['password']
+            )
+            Author.objects.create(
+                user=u,
+                first_name=data['first_name'],
+                last_name=data['last_name'],
+            )
+            login(request, u)
+            return HttpResponseRedirect(reverse('homepage'))
+
+def login_view(request, *args, **kwargs):
+    if request.method == 'GET':
+        title = 'Welcome back, please login to continue:'
+        page = 'general_form.html'
+        form = LoginForm()
+        return render(request, page, {'form': form, 'title': title})
+
+    else:
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            u = authenticate(username=data['username'], password=data['password'])
+            if u is not None:
+                login(request, u)
+            else:
+                return HttpResponseRedirect(reverse('login'))
+            return HttpResponseRedirect(reverse('homepage'))
 
 def author(request, *args, **kwargs):
     page = 'author.html'

@@ -6,4 +6,5 @@
     <p>{{recipe.description}} (time required: {{recipe.time_rq}} min.)</p>
     <a href="/author/?id={{ recipe.author.id }}">Author: {{recipe.author}}</a>
 {% endfor %}
+    <p>The logged in user is: {{ request.user }}</p>
 </div>
