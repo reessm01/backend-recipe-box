@@ -1,10 +1,17 @@
+{% if end_point == 'login' %}
+<p><a href="/">Index</a> | <strong>Login</strong> | <a href="/addrecipe">Add Recipe</a> | <a href="/register">Add User</a> | <a href="/logout">Logout</a></p>
+{% else %}
+<p><a href="/">Index</a> | <a href="/login">Login</a> | <a href="/addrecipe">Add Recipe</a> | <strong>Add User</strong> | <a href="/logout">Logout</a></p>
+{% endif %}
 <div>
     <fieldset>
-      <legend>{{ title }}:</legend>
+      <legend>{{ title }}</legend>
       <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
+        {% if not disabled %}
         <button type="submit">Submit</button>
+        {% endif %}
       </form>
       {{ message }}
     </fieldset>
